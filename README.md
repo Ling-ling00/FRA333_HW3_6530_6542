@@ -1,1 +1,1 @@
-#FRA333 Homework Assignment 3: Static Force
+# FRA333 Homework Assignment 3: Static Force
