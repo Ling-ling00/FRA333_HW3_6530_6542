@@ -21,27 +21,26 @@ pip install numpy==1.24.4
 จากสมการ 
 ![alt text](image/part1equation-1.jpg)
 โดยที่เมื่อหุ่นยนต์ เป็น RRR-Robot ทำให้เลือกใช้สมการที่อ้างอิงกับ Revolute Joint คือ
-ความเร็วเชิงเส้น
+
+- Jacobian เชิงเส้น
 ![alt text](image/jaocbianv-1.png)
 สามารถเขียนเป็น Code ได้ดังนี้ 
 ```
 Jv_T[i] = np.cross(np.transpose(R[:,:,i] @ [[0],[0],[1]]), P0_e - P[:,i])[0]
 ```
 
-ความเร็วเชิงมุม
+- Jacobian เชิงมุม
 ![alt text](image/image-1.png)
 สามารถเขียนเป็น Code ได้ดังนี้
 ```
 Jw_T[i] = np.transpose(R[:,:,i] @ [[0],[0],[1]])
 ```
 
-และเนื่องจากโจทย์กำหนดให้เป็น Matrix 3x1 จึงทำการ Transpose เพื่อแปลงเป็น Matrix 1x3 เพื่อความสะดวกกับการนำไปme matrix oparation ต่อด้วย function
-```
-np.transpose()
-```
+และเพื่อให้ง่ายต่อการเก็บข้อมูล จึงแปลง zi จาก Matrix 3x1 เป็น Matrix 1x3 เพื่อให้ได้ผลลัพธ์ของการ cross เป็น Matrix 1x3 และเก็บ Jacobian เป็น Jacobian transpose
 
-2. แปลงเป็น Jacobian reference end-effector
-จาก Jacobian reference base นำไปคูณ Rotation Matrix R0_e เพื่อแปลงเป็น Jacobian reference end-effector
+
+2. แปลงเป็น Jacobian จาก reference base เป็น reference end-effector
+จาก Jacobian Transpose reference base นำไปคูณ Rotation Matrix จาก frame 0 ไป e (R0_e) เพื่อแปลงเป็น Jacobian Transpose reference end-effector
 ```
 Jv_T = Jv_T @ R0_e
 Jw_T = Jw_T @ R0_e
@@ -87,7 +86,7 @@ def checkSingularityHW3(q:list[float])->bool:
 ![alt text](image/image-10.png)
 โดยที่ W คือ Matrix ของ force และ Moment ดังรูป
 ![alt text](image/image-11.png)
-โดยทจากโจทย์ W ที่ให้มาจะมีค่าดังนี้
+โดยที่จากโจทย์ W ที่ให้มาจะมีค่าดังนี้
 ![alt text](image/image-12.png)
 ดังนั้นจึงได้สลับตำแหน่งระหว่าง moment และ Force เพื่อให้สอคล้องกับ form ของ Matrix W เขียนเป็น Code ได้ดังนี้
 ```

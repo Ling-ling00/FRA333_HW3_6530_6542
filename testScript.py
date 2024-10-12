@@ -47,7 +47,7 @@ print(f'diferencerial between robotics toolbox and HW3_utils is {np.linalg.norm(
 #===========================================<ตรวจคำตอบข้อ 1>====================================================#
 print('===========================================part1===========================================')
 
-q = [pi/2, pi/2, pi/2]
+q = np.random.uniform(-pi, pi, 3)
 J_toolbox = robot.jacobe(q)
 J_custom = FRA333_HW3_6530_6542.endEffectorJacobianHW3(q)
 
@@ -63,28 +63,28 @@ print(f'diferencerial between robotics toolbox and HW3 is {np.linalg.norm(J_cust
 #===========================================<ตรวจคำตอบข้อ 2>====================================================#
 print('===========================================part2===========================================')
 
-q = [pi/2, pi/2, pi/2]
+q = np.random.uniform(-pi, pi, 3)
 flag_toolbox0 = abs(np.linalg.det(robot.jacob0(q)[:3])) < 0.001 #check from reduce jacobian ref 0 from robotics toolbox
 flag_toolboxe = abs(np.linalg.det(robot.jacobe(q)[:3])) < 0.001 #check from reduce jacobian ref e from robotics toolbox
 flag_custom = FRA333_HW3_6530_6542.checkSingularityHW3(q)
-print(f'check singularity from reduce jacobian ref 0 from robotics toolbox for q = {np.around(q, 2)} is \t {flag_toolbox0}')
-print(f'check singularity from reduce jacobian ref e from robotics toolbox for q = {np.around(q, 2)} is \t {flag_toolboxe}')
-print(f'check singularity from HW3 for q = {np.around(q, 2)} is \t\t\t\t\t\t {flag_custom} \n')
+print(f'check singularity from reduce jacobian ref 0 from robotics toolbox for q = {np.around(q, 2)} is {flag_toolbox0}')
+print(f'check singularity from reduce jacobian ref e from robotics toolbox for q = {np.around(q, 2)} is {flag_toolboxe}')
+print(f'check singularity from HW3 for q = {np.around(q, 2)} is {flag_custom} \n')
 
 q = [0,0,-0.19]
 flag_toolbox0 = abs(np.linalg.det(robot.jacob0(q)[:3])) < 0.001 #check from reduce jacobian ref 0 from robotics toolbox
 flag_toolboxe = abs(np.linalg.det(robot.jacobe(q)[:3])) < 0.001 #check from reduce jacobian ref e from robotics toolbox
 flag_custom = FRA333_HW3_6530_6542.checkSingularityHW3(q)
-print(f'check singularity from reduce jacobian ref 0 from robotics toolbox for q = {np.around(q, 2)} is \t {flag_toolbox0}')
-print(f'check singularity from reduce jacobian ref e from robotics toolbox for q = {np.around(q, 2)} is \t {flag_toolboxe}')
-print(f'check singularity from HW3 for q = {np.around(q, 2)} is \t\t\t\t\t\t {flag_custom} \n')
+print(f'check singularity from reduce jacobian ref 0 from robotics toolbox for q = {np.around(q, 2)} is {flag_toolbox0}')
+print(f'check singularity from reduce jacobian ref e from robotics toolbox for q = {np.around(q, 2)} is {flag_toolboxe}')
+print(f'check singularity from HW3 for q = {np.around(q, 2)} is {flag_custom} \n')
 #==============================================================================================================#
 
 #===========================================<ตรวจคำตอบข้อ 3>====================================================#
 print('===========================================part3===========================================')
 
-q = [pi/2, pi/2, pi/2]
-w_f_m = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6] #w = [force, moment] for robotics toolbox 
+q = np.random.uniform(-pi, pi, 3)
+w_f_m = np.random.uniform(-100, 100, 6) #w = [force, moment] for robotics toolbox 
 w_m_f = [0, 0, 0, 0, 0, 0]
 w_m_f[3:], w_m_f[:3] = w_f_m[:3], w_f_m[3:] #w = [moment, force] for hw3
 tau_toolbox = robot.pay(w_f_m , q,frame=1) * -1 #from robotics toolbox robot.pay is -J*w -> *-1 = J*w

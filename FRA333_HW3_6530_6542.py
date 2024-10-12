@@ -19,9 +19,9 @@ def endEffectorJacobianHW3(q:list[float])->list[float]:
     for i in range(len(q)):
         Jv_T[i] = np.cross(np.transpose(R[:,:,i] @ [[0],[0],[1]]), P0_e - P[:,i])[0] #Jv = zi x (P0_e - P0_i), zi = R0_i * [[0], [0], [1]] -> 3*1 transpose = 1*3
         Jw_T[i] = np.transpose(R[:,:,i] @ [[0],[0],[1]])
-
+        
     #แปลง Jref0 เป็น Jrefe
-    Jv_T = Jv_T @ R0_e # จาก Jref0T * R0_e *ve = JrefeT * ve จะได้ว่า JrefeT = Jref0T * R0_e
+    Jv_T = Jv_T @ R0_e # จาก Jref0T * R0_e *w(e) = JrefeT * w(e) จะได้ว่า JrefeT = Jref0T * R0_e
     Jw_T = Jw_T @ R0_e
     Jv = np.transpose(Jv_T)
     Jw = np.transpose(Jw_T)
